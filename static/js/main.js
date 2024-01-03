@@ -48,13 +48,14 @@ function makeApp(appObject, isSearchResult = false) {
     container.setAttribute('id', `app-${id}`);
 
     if (isSearchResult) {
-        const addButton = document.createElement('button');
-        addButton.classList.add('green');
-        addButton.innerText = 'Tambahkan ke rak';
-        addButton.addEventListener('click', function () {
-            addBookFromSearch(appObject);
+        const updateYearButton = document.createElement('button');
+        updateYearButton.classList.add('blue');
+        updateYearButton.innerText = 'Ubah Tahun Buku';
+        updateYearButton.addEventListener('click', function () {
+            updateBookYear(id);
         });
-        container.append(addButton);
+
+        container.append(updateYearButton);
     } else {
         if (isComplete) {
             const selesaiButton = document.createElement('button');
@@ -71,7 +72,14 @@ function makeApp(appObject, isSearchResult = false) {
                 hapusbuku(id);
             });
 
-            container.append(selesaiButton, hapusButton);
+            const updateYearButton = document.createElement('button');
+            updateYearButton.classList.add('blue');
+            updateYearButton.innerText = 'Ubah Tahun Buku';
+            updateYearButton.addEventListener('click', function () {
+                updateBookYear(id);
+            });
+
+            container.append(selesaiButton, hapusButton, updateYearButton);
 
         } else {
             const belumButton = document.createElement('button');
@@ -88,7 +96,14 @@ function makeApp(appObject, isSearchResult = false) {
                 hapusbuku(id);
             });
 
-            container.append(belumButton, hapusButton);
+            const updateYearButton = document.createElement('button');
+            updateYearButton.classList.add('blue');
+            updateYearButton.innerText = 'Ubah Tahun Buku';
+            updateYearButton.addEventListener('click', function () {
+                updateBookYear(id);
+            });
+
+            container.append(belumButton, hapusButton, updateYearButton);
 
         }
     }
@@ -241,6 +256,24 @@ function hapusHasilPencarian() {
     hasilNyari.innerHTML = '';
 }
 
+function updateBookYear(appId) {
+    const appToUpdate = findApp(appId);
+    if (!appToUpdate) return;
+
+    const newYearString = prompt('Masukkan tahun baru:');
+    if (!newYearString) return;
+
+    const newYear = parseInt(newYearString, 10);
+    if (isNaN(newYear)) {
+        alert('Tahun harus berupa angka.');
+        return;
+    }
+
+    appToUpdate.year = newYear;
+
+    document.dispatchEvent(new Event(RENDER_EVENT));
+    saveData();
+}
 
 
 document.addEventListener('DOMContentLoaded', function () {

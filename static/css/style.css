@@ -26,7 +26,6 @@ main {
     width: 80%;
     margin: 0 auto;
     padding: 16px;
-
 }
 
 .input_section {
@@ -67,7 +66,6 @@ main {
     padding: 8px;
     border-radius: 5px;
 }
-
 
 .input_section > form > .input > label {
     color: cornflowerblue;
@@ -177,7 +175,6 @@ main {
     margin-right: 16px;
     border-radius: 5px;
     cursor: pointer;
-
 }
 
 .red {
